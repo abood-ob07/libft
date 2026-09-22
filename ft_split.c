@@ -6,100 +6,98 @@
 /*   By: abobeida <abobeida@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 13:37:26 by abobeida          #+#    #+#             */
-/*   Updated: 2026/09/17 13:48:12 by abobeida         ###   ########.fr       */
+/*   Updated: 2026/09/22 17:47:50 by abobeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	is_sep(char chr, char c)
+static int	count_words(char const *s, char c)
 {
-	if (chr == c)
-		return (1);
-	return (0);
-}
-
-int	count(char const *s, char c)
-{
-	int	counter;
 	int	i;
+	int	count;
 
 	i = 0;
-	counter = 0;
+	count = 0;
 	while (s[i])
 	{
-		if (!is_sep(s[i], c) && (i == 0 || is_sep(s[i - 1], c)))
-			counter++;
-		i++;
+		while (s[i] && s[i] == c)
+			i++;
+		if (s[i])
+			count++;
+		while (s[i] && s[i] != c)
+			i++;
 	}
-	return (counter);
+	return (count);
 }
 
-char	*get_word(const char *con_ptr, char c)
+static char	*get_word(char const *s, char c)
 {
-	char	*ptr;
-	int		i;
+	char	*word;
 	int		len;
+	int		i;
 
-	i = 0;
 	len = 0;
-	while (con_ptr[i] && !is_sep(con_ptr[i], c))
-	{
+	while (s[len] && s[len] != c)
 		len++;
-		i++;
-	}
-	ptr = malloc(len + 1);
-	if (!ptr)
+	word = malloc(sizeof(char) * (len + 1));
+	if (!word)
 		return (NULL);
 	i = 0;
 	while (i < len)
 	{
-		ptr[i] = con_ptr[i];
+		word[i] = s[i];
 		i++;
 	}
-	ptr[i] = '\0';
-	return (ptr);
+	word[i] = '\0';
+	return (word);
 }
 
-char	**free_loc(char **result, int j)
+static void	free_all(char **result, int count)
 {
-	if (!result[j])
+	while (count > 0)
 	{
-		while (j)
-		{
-			j--;
-			free(result[j]);
-		}
-		free(result);
-		return (NULL);
+		count--;
+		free(result[count]);
 	}
-	return (result);
+	free(result);
+}
+
+static int	fill_words(char **result, char const *s, char c)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		while (s[i] && s[i] == c)
+			i++;
+		if (!s[i])
+			break ;
+		result[j] = get_word(&s[i], c);
+		if (!result[j])
+		{
+			free_all(result, j);
+			return (0);
+		}
+		j++;
+		while (s[i] && s[i] != c)
+			i++;
+	}
+	result[j] = NULL;
+	return (1);
 }
 
 char	**ft_split(char const *s, char c)
 {
 	char	**result;
-	int		i;
-	int		j;
 
-	result = malloc(sizeof(char *) * (count(s, c) + 1));
+	result = malloc(sizeof(char *) * (count_words(s, c) + 1));
 	if (!result)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (s[i])
-	{
-		while (s[i] && is_sep(s[i], c))
-			i++;
-		if (!s[i])
-			break ;
-		result[j] = get_word(&s[i], c);
-		if (!free_loc(result, j))
-			return (NULL);
-		while (s[i] && !is_sep(s[i], c))
-			i++;
-		j++;
-	}
-	result[j] = NULL;
+	if (!fill_words(result, s, c))
+		return (NULL);
 	return (result);
 }
