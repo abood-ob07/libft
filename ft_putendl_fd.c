@@ -6,7 +6,7 @@
 /*   By: abobeida <abobeida@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 08:52:38 by abobeida          #+#    #+#             */
-/*   Updated: 2026/09/17 10:15:45 by abobeida         ###   ########.fr       */
+/*   Updated: 2026/09/26 15:57:22 by abobeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,9 @@ void	ft_putendl_fd(char *s, int fd)
 
 	i = 0;
 	while (s[i])
-		write (fd, &s[i++], 1);
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
+	write(fd, "\n", 1);
 }

@@ -6,7 +6,7 @@
 /*   By: abobeida <abobeida@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 08:41:26 by abobeida          #+#    #+#             */
-/*   Updated: 2026/09/22 11:45:32 by abobeida         ###   ########.fr       */
+/*   Updated: 2026/09/29 09:47:58 by abobeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	void	*content;
 
 	list = NULL;
+	if (!lst || !f || !del)
+		return (NULL);
 	while (lst)
 	{
 		content = f(lst->content);

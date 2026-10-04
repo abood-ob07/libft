@@ -6,13 +6,13 @@
 /*   By: abobeida <abobeida@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 11:33:00 by abobeida          #+#    #+#             */
-/*   Updated: 2026/09/15 17:05:07 by abobeida         ###   ########.fr       */
+/*   Updated: 2026/09/26 12:53:23 by abobeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_is_in_set(char c, char const *set)
+static int	check(char c, char const *set)
 {
 	size_t	i;
 
@@ -37,9 +37,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (NULL);
 	start = 0;
 	end = ft_strlen(s1);
-	while (start < end && ft_is_in_set(s1[start], set))
+	while (start < end && check(s1[start], set))
 		start++;
-	while (end > start && ft_is_in_set(s1[end - 1], set))
+	while (end > start && check(s1[end - 1], set))
 		end--;
 	trim = malloc(end - start + 1);
 	if (!trim)

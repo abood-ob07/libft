@@ -6,7 +6,7 @@
 /*   By: abobeida <abobeida@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 16:50:09 by abobeida          #+#    #+#             */
-/*   Updated: 2026/09/10 17:23:01 by abobeida         ###   ########.fr       */
+/*   Updated: 2026/09/30 13:05:38 by abobeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	unsigned char	*a;
 	unsigned char	*b;
 
+	if (!s1 && !s2)
+		return (0);
 	i = 0;
 	a = (unsigned char *)s1;
 	b = (unsigned char *)s2;

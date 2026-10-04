@@ -6,7 +6,7 @@
 /*   By: abobeida <abobeida@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 08:46:15 by abobeida          #+#    #+#             */
-/*   Updated: 2026/09/22 08:46:17 by abobeida         ###   ########.fr       */
+/*   Updated: 2026/09/27 11:45:54 by abobeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (lst == NULL)
+	if (!lst || !del)
 		return ;
-	del(lst -> content);
+	del(lst->content);
 	free(lst);
 }

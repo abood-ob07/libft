@@ -6,7 +6,7 @@
 /*   By: abobeida <abobeida@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 13:37:26 by abobeida          #+#    #+#             */
-/*   Updated: 2026/09/22 17:47:50 by abobeida         ###   ########.fr       */
+/*   Updated: 2026/09/27 10:16:26 by abobeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,17 @@ static char	*get_word(char const *s, char c)
 	return (word);
 }
 
-static void	free_all(char **result, int count)
+static void	clear(char **result, int j)
 {
-	while (count > 0)
+	while (j > 0)
 	{
-		count--;
-		free(result[count]);
+		j--;
+		free(result[j]);
 	}
 	free(result);
 }
 
-static int	fill_words(char **result, char const *s, char c)
+static int	fill(char **result, char const *s, char c)
 {
 	int	i;
 	int	j;
@@ -79,7 +79,7 @@ static int	fill_words(char **result, char const *s, char c)
 		result[j] = get_word(&s[i], c);
 		if (!result[j])
 		{
-			free_all(result, j);
+			clear(result, j);
 			return (0);
 		}
 		j++;
@@ -97,7 +97,7 @@ char	**ft_split(char const *s, char c)
 	result = malloc(sizeof(char *) * (count_words(s, c) + 1));
 	if (!result)
 		return (NULL);
-	if (!fill_words(result, s, c))
+	if (!fill(result, s, c))
 		return (NULL);
 	return (result);
 }

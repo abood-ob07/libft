@@ -6,7 +6,7 @@
 /*   By: abobeida <abobeida@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 08:14:44 by abobeida          #+#    #+#             */
-/*   Updated: 2026/09/16 08:25:38 by abobeida         ###   ########.fr       */
+/*   Updated: 2026/09/26 15:39:49 by abobeida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,8 @@ void	ft_putstr_fd(char *s, int fd)
 
 	i = 0;
 	while (s[i])
-		write (fd, &s[i++], 1);
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
 }
